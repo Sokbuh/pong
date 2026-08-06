@@ -4,21 +4,36 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 450;
 
-const paddle = {
-    positionX: 0,
-    positionY: 0,
+const leftPaddle = {
+    x: 0,
+    y: 0,
+    width: 12,
+    height: 80,
+    color: '#ffffff'
+}
+
+const rightPaddle = {
+    x: 0,
+    y: 0,
     width: 12,
     height: 80,
     color: '#ffffff'
 }
 
 const ball = {
-    positionX: 0,
-    positionY: 0,
+    x: 0,
+    y: 0,
     width: 16,
     height: 16,
     color: '#ffffff'
 }
+
+ball.x = canvas.width / 2 - ball.width / 2;
+ball.y = canvas.height / 2 - ball.height / 2;
+leftPaddle.x = 30;
+leftPaddle.y = canvas.height / 2 - leftPaddle.height / 2;
+rightPaddle.x = canvas.width - 30 - rightPaddle.width;
+rightPaddle.y = canvas.height / 2 - rightPaddle.height / 2;
 
 function render() {
     ctx.fillStyle = '#000000';
@@ -29,12 +44,12 @@ function render() {
         ctx.fillRect(canvas.width / 2 - 2, y, 4, 18);
     }
 
-    ctx.fillStyle = paddle.color;
-    ctx.fillRect(30, canvas.height / 2 - paddle.height / 2, paddle.width, paddle.height);
-
-    ctx.fillRect(canvas.width - 30 - paddle.width, canvas.height / 2 - paddle.height / 2, paddle.width, paddle.height);
+    ctx.fillStyle = leftPaddle.color;
+    ctx.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
+    ctx.fillStyle = rightPaddle.color;
+    ctx.fillRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
     ctx.fillStyle = ball.color;
-    ctx.fillRect(canvas.width / 2 - ball.width / 2,canvas.height / 2 - ball.height / 2, ball.width, ball.height );
+    ctx.fillRect(ball.x, ball.y, ball.width, ball.height );
 }
 
 render();
