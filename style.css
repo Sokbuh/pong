@@ -1,0 +1,12 @@
+.page {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #181818;
+}
+
+#canvas {
+    border: 3px solid white;
+}
