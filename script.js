@@ -52,4 +52,15 @@ function render() {
     ctx.fillRect(ball.x, ball.y, ball.width, ball.height );
 }
 
-render();
+function update() {
+
+}
+
+function gameLoop() {
+    update();
+    render();
+
+    requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
