@@ -28,6 +28,29 @@ const ball = {
     color: '#ffffff'
 }
 
+const keys = {
+    KeyW: false,
+    KeyS: false,
+    ArrowUp: false,
+    ArrowDown: false,
+}
+
+const paddleSpeed = 300;
+
+window.addEventListener('keydown', (evt) => {
+    if (evt.code in keys) {
+        keys[evt.code] = true;
+        evt.preventDefault();
+    }
+})
+
+window.addEventListener('keyup', (evt) => {
+    if (evt.code in keys) {
+        keys[evt.code] = false;
+        evt.preventDefault();
+    }
+})
+
 ball.x = canvas.width / 2 - ball.width / 2;
 ball.y = canvas.height / 2 - ball.height / 2;
 leftPaddle.x = 30;
@@ -52,12 +75,41 @@ function render() {
     ctx.fillRect(ball.x, ball.y, ball.width, ball.height );
 }
 
-function update() {
+function update(deltaTime) {
+    let leftDirection = 0;
+    let rightDirection = 0;
 
+    if (keys.KeyW) {
+        leftDirection -= 1;
+    }
+
+    if (keys.KeyS) {
+        leftDirection += 1;
+    }
+
+    if (keys.ArrowUp) {
+        rightDirection -= 1;
+    }
+
+    if (keys.ArrowDown) {
+        rightDirection += 1;
+    }
+
+    leftPaddle.y += leftDirection * paddleSpeed * deltaTime;
+    rightPaddle.y += rightDirection * paddleSpeed * deltaTime;
+
+    leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
+    rightPaddle.y = Math.max(0, Math.min(canvas.height - rightPaddle.height, rightPaddle.y));
 }
 
-function gameLoop() {
-    update();
+let previousTime = 0;
+
+function gameLoop(currentTime) {
+    const deltaTime = previousTime === 0 ? 0 : (currentTime - previousTime) / 1000;
+
+    previousTime = currentTime;
+
+    update(deltaTime);
     render();
 
     requestAnimationFrame(gameLoop);
