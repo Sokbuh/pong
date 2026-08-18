@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,17 @@
         <title>Pong</title>
     </head>
     <body class="page">
+        <div class="mode-selection" id="mode-selection">
+            <p>Выберите режим</p>
+            <div class="mode-buttons">
+                <button type="button" id="single-player-button">
+                    1 игрок
+                </button>
+                <button type="button" id="two-player-button">
+                    2 игрока
+                </button>
+            </div>
+        </div>
         <canvas id="canvas"></canvas>
         <script src="./script.js"></script>
     </body>

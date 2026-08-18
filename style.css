@@ -5,8 +5,36 @@
     justify-content: center;
     align-items: center;
     background-color: #181818;
+    flex-direction: column;
+    gap: 50px;
 }
 
 #canvas {
     border: 3px solid white;
+}
+
+.mode-selection {
+    color: #ffffff;
+    text-align: center;
+}
+
+.mode-selection p {
+    margin: 0 0 12px;
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.mode-selection[hidden] {
+    display: none;
+}
+
+button {
+    padding: 8px 16px;
+    color: #ffffff;
+    background-color: #181818;
+    border: 2px solid #ffffff;
+    cursor: pointer;
 }

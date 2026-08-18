@@ -1,5 +1,19 @@
+const modeSelection = document.querySelector('#mode-selection');
+const singlePlayerButton = document.querySelector('#single-player-button');
+const twoPlayerButton = document.querySelector('#two-player-button');
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
+let gameMode = null;
+
+singlePlayerButton.addEventListener('click', () => {
+    gameMode = 'single-player';
+    modeSelection.hidden = true;
+})
+
+twoPlayerButton.addEventListener('click', () => {
+    gameMode = 'two-player';
+    modeSelection.hidden = true;
+})
 
 canvas.width = 800;
 canvas.height = 450;
@@ -76,15 +90,22 @@ function render() {
 }
 
 function update(deltaTime) {
+
+    if (gameMode === null) {
+        return;
+    }
+
     let leftDirection = 0;
     let rightDirection = 0;
 
-    if (keys.KeyW) {
-        leftDirection -= 1;
-    }
+    if (gameMode === 'two-player') {
+        if (keys.KeyW) {
+            leftDirection -= 1;
+        }
 
-    if (keys.KeyS) {
-        leftDirection += 1;
+        if (keys.KeyS) {
+            leftDirection += 1;
+        }
     }
 
     if (keys.ArrowUp) {
