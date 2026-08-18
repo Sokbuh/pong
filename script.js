@@ -50,6 +50,8 @@ const keys = {
 }
 
 const paddleSpeed = 300;
+const computerPaddleSpeed = 260;
+const computerDeadZone = 4;
 
 window.addEventListener('keydown', (evt) => {
     if (evt.code in keys) {
@@ -108,6 +110,19 @@ function update(deltaTime) {
         }
     }
 
+    if (gameMode === 'single-player') {
+        const paddleCenter = leftPaddle.y + leftPaddle.height / 2;
+        const ballCenter = ball.y + ball.height / 2;
+
+        if (ballCenter < (paddleCenter - computerDeadZone)) {
+            leftDirection -= 1
+        }
+
+        if (ballCenter > (paddleCenter + computerDeadZone)) {
+            leftDirection = 1
+        }
+    }
+
     if (keys.ArrowUp) {
         rightDirection -= 1;
     }
@@ -116,7 +131,9 @@ function update(deltaTime) {
         rightDirection += 1;
     }
 
-    leftPaddle.y += leftDirection * paddleSpeed * deltaTime;
+    const leftPaddleSpeed = gameMode === 'single-player' ? computerPaddleSpeed : paddleSpeed;
+
+    leftPaddle.y += leftDirection * leftPaddleSpeed * deltaTime;
     rightPaddle.y += rightDirection * paddleSpeed * deltaTime;
 
     leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
