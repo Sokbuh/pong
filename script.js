@@ -37,6 +37,8 @@ const rightPaddle = {
 const ball = {
     x: 0,
     y: 0,
+    velocityX: 260,
+    velocityY: 160,
     width: 16,
     height: 16,
     color: '#ffffff'
@@ -138,12 +140,15 @@ function update(deltaTime) {
 
     leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
     rightPaddle.y = Math.max(0, Math.min(canvas.height - rightPaddle.height, rightPaddle.y));
+
+    ball.x += ball.velocityX * deltaTime;
+    ball.y += ball.velocityY * deltaTime;
 }
 
 let previousTime = 0;
 
 function gameLoop(currentTime) {
-    const deltaTime = previousTime === 0 ? 0 : (currentTime - previousTime) / 1000;
+    const deltaTime = previousTime === 0 ? 0 : Math.min((currentTime - previousTime) / 1000, 0.05);
 
     previousTime = currentTime;
 
